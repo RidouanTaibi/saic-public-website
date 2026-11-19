@@ -1,0 +1,67 @@
+---
+import { site, navbar } from "../constants";
+---
+<header class="navbar" data-pagefind-ignore>
+    <a class="navbar-brand" href={site.url} data-cursor>
+        <svg viewBox="0 0 44 44" fill="none" aria-hidden="true">
+            <circle cx="22" cy="22" r="8" fill="#e45b45"/>
+            <path d="M5 12h34M5 32h34M12 5v34M32 5v34" stroke="#dfe7e0" stroke-width="1.3"/>
+            <path d="M12 12l20 20M32 12L12 32" stroke="#dfe7e0" stroke-width="1" stroke-opacity=".4"/>
+            <circle cx="12" cy="12" r="2.5" fill="#dfe7e0"/>
+            <circle cx="32" cy="12" r="2.5" fill="#dfe7e0"/>
+            <rect x="9.5" y="29.5" width="5" height="5" rx="1" fill="#e45b45"/>
+            <rect x="29.5" y="29.5" width="5" height="5" rx="1" fill="#dfe7e0"/>
+            <circle cx="22" cy="22" r="2.5" fill="#111b24"/>
+        </svg>
+        <span class="navbar-brand-text"><b>SAIC</b><i>IAM</i></span>
+    </a>
+    <nav class="navbar-links" id="navlinks">
+        {navbar.map((item) => (
+        <a class="navbar-link" href={item.path} data-cursor><span>{item.label}</span><span class="alt">{item.label}</span></a>
+        ))}
+    </nav>
+    <button class="navbar-burger" aria-label="Menu" data-cursor><i></i><i></i></button>
+</header>
+
+<style lang="scss">
+.navbar {
+    position:fixed; top:0; left:0; width:var(--vw, 100%); height:var(--nav-h); z-index:50;
+    display:flex; align-items:center; gap:24px; padding:0 var(--pad);
+    transition:transform .55s var(--ease);
+}
+.navbar::before {
+    content:''; position:absolute; inset:0; z-index:-1; pointer-events:none;
+    background:rgba(5,7,10,.62);
+    backdrop-filter:blur(14px) saturate(1.1); -webkit-backdrop-filter:blur(14px) saturate(1.1);
+    opacity:0; transition:opacity .5s linear;
+}
+.navbar.stuck::before{ opacity:1; }
+.navbar::after{
+    content:''; position:absolute; left:var(--pad); right:var(--pad); bottom:0; height:1px;
+    background:var(--line-soft); opacity:0; transition:opacity .5s;
+}
+.navbar.stuck::after{ opacity:1; }
+.navbar.hide{ transform:translate3d(0,-101%,0); }
+.navbar-brand{ display:flex; align-items:center; gap:11px; flex:0 0 auto; }
+.navbar-brand svg{ width:34px; height:34px; display:block; }
+.navbar-brand-text{ display:flex; flex-direction:column; line-height:1; gap:3px; }
+.navbar-brand-text b{ font-size:12px; font-weight:500; letter-spacing:.26em; }
+.navbar-brand-text i{ font-style:normal; font-size:8px; letter-spacing:.34em; color:var(--muted); }
+.navbar-links{ display:flex; gap:clamp(18px,2.6vw,46px); margin-left:auto; }
+.navbar-link{
+    position:relative; font-size:11px; font-weight:500; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--bone-dim); display:block; height:15px; line-height:15px; overflow:hidden;
+}
+.navbar-link span{ display:block; height:15px; line-height:15px; transition:transform .55s var(--ease-out), color .3s; }
+.navbar-link .alt{ position:absolute; inset:0; transform:translate3d(0,100%,0); color:var(--bone); letter-spacing:.32em; }
+.navbar-link:hover span{ transform:translate3d(0,-100%,0); }
+.navbar-link:hover .alt{ transform:none; }
+.navbar-link.on{ color:var(--bone); }
+.navbar-link.on::after{ content:''; position:absolute; left:0; bottom:0; width:100%; height:1px; background:var(--vermilion); }
+.navbar-burger{ margin-left:clamp(18px,2.6vw,42px); width:26px; height:16px; position:relative; flex:0 0 auto; }
+.navbar-burger i{ position:absolute; right:0; height:1.5px; background:var(--bone); transition:width .45s var(--ease-out), transform .45s var(--ease-out); }
+.navbar-burger i:nth-child(1){ top:4px; width:26px; }
+.navbar-burger i:nth-child(2){ top:11px; width:17px; }
+.navbar-burger:hover i:nth-child(2){ width:26px; }
+.navbar-burger:hover i:nth-child(1){ width:17px; }
+</style>

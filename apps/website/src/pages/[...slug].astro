@@ -1,0 +1,31 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { pagePath } from "../constants";
+import { t } from "../utils/i18n";
+
+import Home from "../components/Home.astro";
+
+export async function getStaticPaths() {
+  return (await getCollection("docs")).map((entry: any) => ({
+    params: { slug: pagePath(entry.id).slice(1, -1) || undefined },
+    props: { entry },
+  }));
+}
+
+const lang = Astro.currentLocale || "en";
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const isHome = entry.id === "_index";
+const file = entry.filePath?.replace(/^.*?content\//, "") ?? `${entry.id}.md`;
+---
+<BaseLayout title={t('site.title', lang)} description={t('site.description', lang)}>
+   {
+    isHome ? (
+      <Home />
+    ) : (
+      <Content />
+    )
+   }
+</BaseLayout>

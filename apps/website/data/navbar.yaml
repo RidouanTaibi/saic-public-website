@@ -1,0 +1,13 @@
+- label: Home
+  link: /
+  items:
+    - label: Services
+      link: /#services
+    - label: Resources
+      link: /#resources
+- label: Services
+  link: /services
+- label: Resources
+  link: /resources
+- label: Company
+  link: /company

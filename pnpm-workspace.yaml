@@ -1,0 +1,8 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+allowBuilds:
+  '@parcel/watcher': set this to true or false
+minimumReleaseAgeExclude:
+  - "@astrojs/runtime@0.1.2"
+  - astro@7.4.13

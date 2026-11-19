@@ -1,0 +1,15 @@
+---
+import Hero from "./sections/Hero.astro";
+
+const lang = Astro.currentLocale || "en";
+---
+<div class="page" id="top">
+    <Hero lang={lang} />
+</div>
+
+<style lang="scss">
+    .page{ 
+        position:relative; 
+        z-index:10;
+    }
+</style>
